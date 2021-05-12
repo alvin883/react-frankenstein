@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { createContext, useContext, useRef } from 'react';
 import clsx from 'clsx';
 import { CSSTransition } from 'react-transition-group';
 
@@ -10,9 +10,9 @@ import useKeyupEffect from '../../hooks/use-keyup-effect';
 let DEFAULT_TAG: 'div' = 'div';
 
 type ModalContextType = { isOpen: boolean; close: () => void } | null;
-const ModalContext = React.createContext<ModalContextType>(null);
+const ModalContext = createContext<ModalContextType>(null);
 const useModalContext = () => {
-  const context = React.useContext(ModalContext);
+  const context = useContext(ModalContext);
   return context;
 };
 
@@ -38,7 +38,7 @@ const Modal: StandardComponentType<typeof DEFAULT_TAG, ModalProps> & {
   className,
   onClose
 }) => {
-  const rootRef = React.useRef(null);
+  const rootRef = useRef(null);
 
   useKeyupEffect(
     document,

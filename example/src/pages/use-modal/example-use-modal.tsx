@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal } from 'react-frankenstein';
 import Button from '../../components/button';
 import Heading from '../../components/heading';

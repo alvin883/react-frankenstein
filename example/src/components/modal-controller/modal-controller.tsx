@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 // import { useModal } from 'react-frankenstein';
 
