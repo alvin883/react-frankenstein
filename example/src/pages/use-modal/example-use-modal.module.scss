@@ -1,0 +1,26 @@
+.modal {
+    $self: #{&};
+
+    &__box {
+        padding: 16px;
+        border-radius: 4px;
+        background-color: #f9fafb;
+    }
+
+    &__title {
+        margin: 0;
+    }
+
+    &.is-open {
+        #{$self}__box {
+        }
+    }
+}
+
+.second {
+    pointer-events: none;
+
+    &__box {
+        margin-top: 400px;
+    }
+}

@@ -1,0 +1,18 @@
+.modal {
+    $self: #{&};
+
+    &__box {
+        padding: 16px;
+        border-radius: 4px;
+        background-color: #f9fafb;
+    }
+
+    &__title {
+        margin: 0;
+    }
+
+    &.is-open {
+        #{$self}__box {
+        }
+    }
+}
