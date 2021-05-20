@@ -7,8 +7,8 @@ const useKeyupEffect = (
 ) => {
   const handler = (e: KeyboardEvent) => callback(e);
   useEffect(() => {
-    ref.addEventListener('keyup', handler);
-    return () => ref.removeEventListener('keyup', handler);
+    ref.addEventListener('keyup', handler as any);
+    return () => ref.removeEventListener('keyup', handler as any);
   }, deps);
 };
 

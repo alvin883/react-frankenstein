@@ -39,8 +39,6 @@
 
 // export default Modal;
 
-import React from 'react';
-
 const Modal = () => {
   return <div></div>;
 };
