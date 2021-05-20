@@ -21,11 +21,11 @@
     "node-sass": "link:../node_modules/node-sass",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
+    "react-frankenstein": "link:..",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "link:../node_modules/react-scripts",
     "react-transition-group": "link:../node_modules/react-transition-group",
-    "react-frankenstein": "link:..",
     "typescript": "link:../node_modules/typescript"
   },
   "devDependencies": {
