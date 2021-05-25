@@ -34,17 +34,21 @@ export type StandardComponentTypeProps<TagType, Props> = Props &
  * Standardize component type combined with dynamic as props and default tag
  * type
  */
-export type StandardComponentType<DefaultTag extends React.ElementType, Props> =
-  (<TagType extends React.ElementType = DefaultTag>(
-    props: StandardComponentTypeProps<TagType, Props>,
-  ) => React.ReactElement) & {
-    propTypes: React.WeakValidationMap<Props>;
-  };
+export type StandardComponentType<
+  DefaultTag extends React.ElementType,
+  Props
+> = (<TagType extends React.ElementType = DefaultTag>(
+  props: StandardComponentTypeProps<TagType, Props>,
+) => React.ReactElement) & {
+  propTypes?: React.WeakValidationMap<Props>;
+};
 
-export type StandardComponentWithClassName<DT extends React.ElementType, P> =
-  StandardComponentType<DT, P> & {
-    styles: string;
-  };
+export type StandardComponentWithClassName<
+  DT extends React.ElementType,
+  P
+> = StandardComponentType<DT, P> & {
+  styles: string;
+};
 
 export type ClassNamesType<S extends string> = {
   [key in S]?: string;
