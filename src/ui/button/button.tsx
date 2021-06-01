@@ -1,9 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './button.module.scss';
 import { StandardComponentType } from '../../types';
 import { stylesCombinerFn } from '../../utils/styles-combiner';
+import ButtonIcon from './button-icon';
+import ButtonLoading from './button-loading';
+import ButtonText from './button-text';
 
 let DEFAULT_TAG: 'button' = 'button';
 
@@ -12,7 +15,14 @@ type VariantEnum = 'fab' | 'fab-circle' | 'outlined' | 'contained';
 type ColorEnum = 'primary' | 'secondary';
 
 export type ButtonProps = {
-  classNames?: object;
+  classNames?: {
+    button?: string;
+    button__icon?: string;
+    button__iconStart?: string;
+    button__iconEnd?: string;
+    button__text?: string;
+    button__loading?: string;
+  };
   color?: ColorEnum;
   disabled?: boolean;
   iconEnd?: React.ElementType;
@@ -30,12 +40,13 @@ const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
   const {
     as: Tag = DEFAULT_TAG,
     classNames = {},
-    className,
+    className = null,
     size = 'normal',
     variant = 'contained',
     color = 'primary',
     disabled = false,
-    isLoading = false,
+    isLoading,
+    children,
   } = props;
 
   const c = stylesCombinerFn(styles, classNames);
@@ -43,21 +54,61 @@ const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
   return (
     <Tag
       className={c('button', className, {
-        [c[`size-${size}`]]: size,
-        [c[`color-${color}`]]: color,
-        [c[`variant-${variant}`]]: variant,
-        [c[`is-loading`]]: isLoading,
-        [c[`is-disabled`]]: disabled,
+        [styles[`size-${size}`]]: size,
+        [styles[`color-${color}`]]: color,
+        [styles[`variant-${variant}`]]: variant,
+        [styles[`is-loading`]]: isLoading,
+        [styles[`is-disabled`]]: disabled,
       })}
       disabled={props.disabled || isLoading}
-    ></Tag>
+    >
+      {children ? (
+        typeof children === 'function' ? (
+          children()
+        ) : (
+          children
+        )
+      ) : (
+        <div className={c('button__wrapper')}>
+          {isLoading ? (
+            <ButtonLoading
+              classNames={{
+                loading: c('button__loading'),
+                loading__icon: c('button__icon', c('button__iconLoading')),
+                animation: c('button__loadingAnimation'),
+              }}
+            />
+          ) : null}
+          {props.iconStart ? (
+            <ButtonIcon
+              className={c('button__icon', c('button__iconStart'))}
+              svg={props.iconStart}
+            />
+          ) : null}
+          {props.text ? (
+            <ButtonText className={c('button__text')}>{props.text}</ButtonText>
+          ) : null}
+          {props.iconEnd ? (
+            <ButtonIcon
+              className={c('button__icon', c('button__iconEnd'))}
+              svg={props.iconEnd}
+            />
+          ) : null}
+        </div>
+      )}
+    </Tag>
   );
 };
 
+// TODO: iconStart & iconEnd props
 Button.propTypes = {
-  size: PropTypes.oneOf<SizeEnum>(['small', 'normal', 'jumbo']),
-  variant: PropTypes.oneOf<VariantEnum>(['fab', 'fab-circle']),
+  classNames: PropTypes.object,
   color: PropTypes.oneOf<ColorEnum>(['primary', 'secondary']),
+  disabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  size: PropTypes.oneOf<SizeEnum>(['small', 'normal', 'jumbo']),
+  text: PropTypes.string,
+  variant: PropTypes.oneOf<VariantEnum>(['fab', 'fab-circle']),
 };
 
 export default Button;
