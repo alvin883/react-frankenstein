@@ -69,4 +69,5 @@ const useModal: useModalType = ({
   };
 };
 
+export { useModal };
 export default useModal;

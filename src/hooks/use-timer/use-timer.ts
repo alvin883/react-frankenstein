@@ -39,4 +39,5 @@ const useTimer: UseTimerType = ({ deadline, onTimeout = () => {} }) => {
   return remainingTime;
 };
 
+export { useTimer };
 export default useTimer;

@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './pages/home';
-import ExampleUseModal from './pages/use-modal';
-import Button from './pages/ui/button';
+import ButtonDocs from './pages/button';
+import useModalDocs from './pages/use-modal';
+import useTimerDocs from './pages/use-timer';
 
 const App = () => {
   return (
@@ -9,8 +10,9 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route path='/' exact component={Home} />
-          <Route path='/hooks/use-modal' component={ExampleUseModal} />
-          <Route path='/ui/button' component={Button} />
+          <Route path='/button' component={ButtonDocs} />
+          <Route path='/use-modal' component={useModalDocs} />
+          <Route path='/use-timer' component={useTimerDocs} />
         </Switch>
       </BrowserRouter>
     </div>
