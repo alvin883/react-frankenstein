@@ -53,6 +53,7 @@ const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
 
   return (
     <Tag
+      {...props}
       className={c('button', className, {
         [styles[`size-${size}`]]: size,
         [styles[`color-${color}`]]: color,
@@ -111,4 +112,5 @@ Button.propTypes = {
   variant: PropTypes.oneOf<VariantEnum>(['fab', 'fab-circle']),
 };
 
+export { Button };
 export default Button;
