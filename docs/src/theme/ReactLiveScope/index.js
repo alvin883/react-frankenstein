@@ -6,6 +6,8 @@
  */
 
 import React from 'react';
+import { Button } from 'react-frankenstein';
+import 'react-frankenstein/dist/index.css';
 
 const ButtonExample = (props) => (
   <button
@@ -26,6 +28,7 @@ const ReactLiveScope = {
   React,
   ...React,
   ButtonExample,
+  Button,
 };
 
 export default ReactLiveScope;
