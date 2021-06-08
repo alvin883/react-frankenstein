@@ -2,8 +2,8 @@
 module.exports = {
   title: 'React Frankenstein',
   tagline: 'Dinosaurs are cool',
-  url: 'https://react-frankenstein.alvinnovian.com',
-  baseUrl: '/',
+  url: 'https://alvin883.github.io',
+  baseUrl: '/react-frankenstein/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
