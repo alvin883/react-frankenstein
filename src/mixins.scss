@@ -1,0 +1,98 @@
+// ----------------------------------------------------------------------------
+// This file contains CSS helper classes or extendable properties
+// ----------------------------------------------------------------------------
+
+@mixin u-clearfix {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+@mixin u-absolute-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@mixin u-absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin u-pseudo-overlay {
+    @include u-absolute-overlay;
+    content: '';
+}
+
+@mixin u-reset-button {
+    padding: 0;
+    border: 0;
+    font-family: inherit;
+    font-size: inherit;
+    background-color: transparent;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin u-reset-a {
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    text-align: center;
+    background-color: transparent;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin u-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin u-fix-flex-minheight {
+    &:after {
+        content: '';
+        min-height: inherit;
+        font-size: 0;
+    }
+}
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// TODO: decide whether it's better to use mixin or function
+// pros of using mixin:
+//      - cleaner (better DX)
+// pros of using function:
+//      - better sourcemap (better debugging experience)
+@mixin specificity($class, $level: 2) {
+    $class-output: '';
+    @for $i from 1 through $level {
+        $class-output: #{$class-output} + #{$class};
+    }
+    #{$class-output} {
+        @content;
+    }
+}
+
+@function specificity($class, $level: 2) {
+    $class-output: '';
+    @for $i from 1 through $level {
+        $class-output: #{$class-output} + #{$class};
+    }
+    @return $class-output;
+}
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------

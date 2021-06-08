@@ -1,1 +1,1 @@
-export { default } from './use-timer';
+export { useTimer } from './use-timer';

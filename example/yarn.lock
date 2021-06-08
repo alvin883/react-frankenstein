@@ -1646,13 +1646,9 @@
   version "0.0.0"
   uid ""
 
-"@testing-library/react@11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-11.0.0.tgz#b8ab18752dbb09986925cda73da789c3cdbc4ff0"
-  integrity sha512-C3CL59UljaWe4f+/0vdfTKz54XPGod56egcdQLysowpJ/KUMyr5rhY2z+qRzbSlF73Soq3vHFGm+DTnl98s9fQ==
-  dependencies:
-    "@babel/runtime" "^7.11.2"
-    "@testing-library/dom" "^7.23.0"
+"@testing-library/react@link:../node_modules/@testing-library/react":
+  version "0.0.0"
+  uid ""
 
 "@testing-library/user-event@link:../node_modules/@testing-library/user-event":
   version "0.0.0"
@@ -9598,8 +9594,14 @@ react-router@5.2.0, react-router@^5.2.0:
   uid ""
 
 react-transition-group@^4.4.1:
-  version "0.0.0"
-  uid ""
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"
+  integrity sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
 
 "react-transition-group@link:../node_modules/react-transition-group":
   version "0.0.0"

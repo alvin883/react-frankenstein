@@ -37,9 +37,11 @@ export type StandardComponentTypeProps<TagType, Props> = Props &
 export type StandardComponentType<
   DefaultTag extends React.ElementType,
   Props
-> = <TagType extends React.ElementType = DefaultTag>(
-  props: StandardComponentTypeProps<TagType, Props>
-) => React.ReactElement;
+> = (<TagType extends React.ElementType = DefaultTag>(
+  props: StandardComponentTypeProps<TagType, Props>,
+) => React.ReactElement) & {
+  propTypes?: React.WeakValidationMap<Props>;
+};
 
 export type StandardComponentWithClassName<
   DT extends React.ElementType,

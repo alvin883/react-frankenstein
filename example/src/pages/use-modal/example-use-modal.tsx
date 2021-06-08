@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
-import { Modal, useModal, NewModal } from 'react-frankenstein';
-import Button from '../../components/button';
+import { Modal, Button, useModal } from 'react-frankenstein';
 import Heading from '../../components/heading';
 
 const Basic = () => {
@@ -10,7 +9,7 @@ const Basic = () => {
   return (
     <>
       <Button onClick={open}>Open</Button>
-      <Modal isOpen={isOpen} onClose={close} /* withPortal */>
+      <Modal isOpen={isOpen} close={close} /* withPortal */>
         <Modal.Overlay />
         <Modal.Box>
           <Modal.Title as={Heading} asProps={{ size: 'h4' }}>
@@ -31,16 +30,16 @@ const ExampleUseModal = () => {
     <>
       <button onClick={modalState.open}>open NewModal</button>
       <Basic />
-      <NewModal {...modalState}>
-        <NewModal.Overlay />
-        <NewModal.Box>
+      <Modal {...modalState}>
+        <Modal.Overlay />
+        <Modal.Box>
           Basic
           {/* <div ref={initFocusRef}>not</div> */}
           <button>not this</button>
           <button ref={initFocusRef}>shit</button>
           <button>damn</button>
-        </NewModal.Box>
-      </NewModal>
+        </Modal.Box>
+      </Modal>
     </>
   );
 };

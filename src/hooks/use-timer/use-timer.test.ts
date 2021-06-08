@@ -23,32 +23,29 @@ describe('useTimer', () => {
   });
 
   it('Should not return value lower than zero', () => {
-    const deadline = (new Date().getTime() - 1000) / 1000;
-    const { result } = renderHook(() => useTimer({ deadline }));
+    const duration = -1000;
+    const { result } = renderHook(() => useTimer({ duration }));
     expect(result.current).toBe(0);
   });
 
   it('Should fire onTimeout immediately if deadline has been passed on initial position', () => {
     const onTimeout = jest.fn();
-    const deadline = (new Date().getTime() - 1000) / 1000;
-    renderHook(() => useTimer({ deadline, onTimeout }));
+    const duration = -1000;
+    renderHook(() => useTimer({ duration, onTimeout }));
     expect(onTimeout).toHaveBeenCalledTimes(1);
   });
 
   it('Should fire onTimeout when deadline passed', () => {
-    const durationInSecond = 1;
-    const spareInSecond = 1;
-
     const onTimeout = jest.fn();
-    const deadline = Math.floor(new Date().getTime() / 1000) + durationInSecond;
-    const waitDuration = durationInSecond + spareInSecond;
+    const duration = 2;
 
-    renderHook(() => useTimer({ deadline, onTimeout }));
+    renderHook(() => useTimer({ duration, onTimeout }));
     expect(onTimeout).not.toHaveBeenCalled();
 
     act(() => {
-      jest.advanceTimersByTime(waitDuration * 1000);
+      jest.runAllTimers();
     });
+
     expect(onTimeout).toHaveBeenCalledTimes(1);
   });
 
@@ -57,9 +54,9 @@ describe('useTimer', () => {
     const spareInSecond = 1;
 
     const onTimeout = jest.fn();
-    const deadline = Math.floor(new Date().getTime() / 1000) + durationInSecond;
+    const duration = durationInSecond * 1000;
     const waitDuration = durationInSecond + spareInSecond;
-    const hook = renderHook(() => useTimer({ deadline, onTimeout }));
+    const hook = renderHook(() => useTimer({ duration, onTimeout }));
 
     expect(onTimeout).not.toHaveBeenCalled();
     hook.unmount();

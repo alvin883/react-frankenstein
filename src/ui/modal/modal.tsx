@@ -10,7 +10,6 @@ import { CSSTransition } from 'react-transition-group';
 import styles from './modal.module.scss';
 import { StandardComponentType } from '../../types';
 import csstmap from '../../utils/csstmap';
-import useKeyupEffect from '../../hooks/use-keyup-effect';
 import { useModalReturnType } from '../../hooks/use-modal/use-modal';
 import useFocusTrap, {
   Features as FocusTrapFeatures,
@@ -18,15 +17,16 @@ import useFocusTrap, {
 
 let DEFAULT_TAG: 'div' = 'div';
 
-export type NewModalProps = useModalReturnType & {
+export type ModalProps = Partial<useModalReturnType> & {
   unmountOnExit?: boolean;
   timeout?: number;
   initialFocusRef?: MutableRefObject<HTMLElement | null>;
 };
 
-const NewModal: StandardComponentType<typeof DEFAULT_TAG, NewModalProps> & {
+const Modal: StandardComponentType<typeof DEFAULT_TAG, ModalProps> & {
   Overlay: typeof Overlay;
   Box: typeof Box;
+  Title: typeof Title;
 } = (props) => {
   const {
     as: Tag = DEFAULT_TAG,
@@ -34,6 +34,7 @@ const NewModal: StandardComponentType<typeof DEFAULT_TAG, NewModalProps> & {
     unmountOnExit = true,
     timeout = 275,
     initialFocusRef,
+    close = () => {},
   } = props;
   const rootRef = useRef(null);
   const focusTrapFeatures = isOpen
@@ -44,7 +45,7 @@ const NewModal: StandardComponentType<typeof DEFAULT_TAG, NewModalProps> & {
   useFocusTrap(rootRef, focusTrapFeatures, { initialFocusRef });
 
   return (
-    <ModalContext.Provider value={{ isOpen: isOpen, close: props.close }}>
+    <ModalContext.Provider value={{ isOpen: isOpen, close: close }}>
       <CSSTransition
         nodeRef={rootRef}
         classNames={csstmap(styles)}
@@ -73,61 +74,6 @@ const ModalContext = createContext<ModalContextType>(null);
 const useModalContext = () => {
   const context = useContext(ModalContext);
   return context;
-};
-
-export type ModalProps = {
-  isOpen: boolean;
-  timeout?: number;
-  unmountOnExit?: boolean;
-  onClose: () => void;
-};
-
-const Modal: StandardComponentType<typeof DEFAULT_TAG, ModalProps> & {
-  Overlay: typeof Overlay;
-  Box: typeof Box;
-  Title: typeof Title;
-} = ({
-  as: Tag = DEFAULT_TAG,
-  asProps,
-  children,
-  removeDefault,
-  isOpen,
-  timeout = 275,
-  unmountOnExit = true,
-  className,
-  onClose,
-}) => {
-  const rootRef = useRef(null);
-
-  useKeyupEffect(
-    document,
-    (e) => {
-      if (e.key !== 'Escape') return;
-      if (!isOpen) return;
-      onClose();
-    },
-    [isOpen],
-  );
-
-  return (
-    <ModalContext.Provider value={{ isOpen, close: onClose }}>
-      <CSSTransition
-        nodeRef={rootRef}
-        classNames={csstmap(styles)}
-        in={isOpen}
-        timeout={timeout}
-        unmountOnExit={unmountOnExit}
-      >
-        <Tag
-          {...asProps}
-          className={clsx(!removeDefault && styles.modal, className)}
-          ref={rootRef}
-        >
-          {children}
-        </Tag>
-      </CSSTransition>
-    </ModalContext.Provider>
-  );
 };
 
 // ----------------------------------------------------------------------------
@@ -215,7 +161,6 @@ Title.styles = styles.title;
 Modal.Overlay = Overlay;
 Modal.Box = Box;
 Modal.Title = Title;
-NewModal.Overlay = Overlay;
-NewModal.Box = Box;
-export { NewModal };
+
+export { Modal };
 export default Modal;

@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import animationInterval from '../../utils/animation-interval';
+import { useIsFirstMount } from '../use-is-first-mount';
 
 type UseTimerType = (args: {
   /**
-   * Unix timestamp (in seconds)
+   * in milliseconds
    */
-  deadline: number;
+  duration: number;
   onTimeout?: () => void;
 }) => number;
 
-const useTimer: UseTimerType = ({ deadline, onTimeout = () => {} }) => {
-  const [deadlineInMs] = useState(deadline * 1000);
-  const getNewTime = () => Math.max(deadlineInMs - new Date().getTime(), 0);
+const useTimer: UseTimerType = ({ duration, onTimeout = () => {} }) => {
+  const isFirstMount = useIsFirstMount();
+  const initDeadline = new Date().getTime() + duration;
+  const [deadline, setDeadline] = useState(initDeadline);
+  const getNewTime = () => Math.max(deadline - new Date().getTime(), 0);
   const [remainingTime, setRemainingTime] = useState(getNewTime());
 
   /**
@@ -27,6 +30,13 @@ const useTimer: UseTimerType = ({ deadline, onTimeout = () => {} }) => {
     }
   };
 
+  // Update deadline if duration changed
+  useEffect(() => {
+    if (isFirstMount) return;
+    setDeadline(new Date().getTime() + duration);
+    setRemainingTime(getNewTime());
+  }, [duration]);
+
   useEffect(() => {
     // Check if it already reach the deadline before setting interval
     if (getNewTime() <= 0) return onTimeout();
@@ -34,9 +44,10 @@ const useTimer: UseTimerType = ({ deadline, onTimeout = () => {} }) => {
     const controller = new AbortController();
     animationInterval(1000, controller.signal, () => onTick(controller));
     return () => controller.abort();
-  }, [deadline]);
+  }, [duration]);
 
   return remainingTime;
 };
 
+export { useTimer };
 export default useTimer;
