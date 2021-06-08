@@ -23,7 +23,7 @@ export type ModalProps = Partial<useModalReturnType> & {
   initialFocusRef?: MutableRefObject<HTMLElement | null>;
 };
 
-const Modal: StandardComponentType<typeof DEFAULT_TAG, ModalProps> & {
+export const Modal: StandardComponentType<typeof DEFAULT_TAG, ModalProps> & {
   Overlay: typeof Overlay;
   Box: typeof Box;
   Title: typeof Title;
@@ -161,6 +161,3 @@ Title.styles = styles.title;
 Modal.Overlay = Overlay;
 Modal.Box = Box;
 Modal.Title = Title;
-
-export { Modal };
-export default Modal;

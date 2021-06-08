@@ -1,9 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+// import { keys } from 'ts-transformer-keys';
 
 import styles from './button.module.scss';
 import { StandardComponentType } from '../../types';
 import { stylesCombinerFn } from '../../utils/styles-combiner';
+import getUncontrolledProps from '../../utils/get-uncontrolled-props';
 import ButtonIcon from './button-icon';
 import ButtonLoading from './button-loading';
 import ButtonText from './button-text';
@@ -33,7 +35,7 @@ export type ButtonProps = {
   variant?: VariantEnum;
 };
 
-const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
+export const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
   props,
 ) => {
   // Default props
@@ -50,10 +52,27 @@ const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
   } = props;
 
   const c = stylesCombinerFn(styles, classNames);
+  // const controlledProps = keys<ButtonProps>();
+  const controlledProps = [
+    'classNames',
+    'color',
+    'disabled',
+    'iconEnd',
+    'iconStart',
+    'isLoading',
+    'size',
+    'text',
+    'variant',
+  ];
+  // const uncontrolledProps = React.useCallback(
+  //   () => getUncontrolledProps(props, controlledProps),
+  //   [],
+  // );
+  const uncontrolledProps = getUncontrolledProps(props, controlledProps);
 
   return (
     <Tag
-      {...props}
+      {...uncontrolledProps}
       className={c('button', className, {
         [styles[`size-${size}`]]: size,
         [styles[`color-${color}`]]: color,
@@ -104,13 +123,10 @@ const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
 // TODO: iconStart & iconEnd props
 Button.propTypes = {
   classNames: PropTypes.object,
-  color: PropTypes.oneOf<ColorEnum>(['primary', 'secondary']),
+  // color: PropTypes.oneOf<ColorEnum>(['primary', 'secondary']),
   disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
-  size: PropTypes.oneOf<SizeEnum>(['small', 'normal', 'jumbo']),
+  // size: PropTypes.oneOf<SizeEnum>(['small', 'normal', 'jumbo']),
   text: PropTypes.string,
-  variant: PropTypes.oneOf<VariantEnum>(['fab', 'fab-circle']),
+  // variant: PropTypes.oneOf<VariantEnum>(['fab', 'fab-circle']),
 };
-
-export { Button };
-export default Button;
