@@ -4,25 +4,27 @@ sidebar_position: 1
 
 # Button
 
-test a
+you know, a button
 
-| Name          | Default     | Type                                  | Description                                                                                                          |
-| ------------- | ----------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| as            | `'button'`  | elementType                           | An element type to render as (string or function).                                                                   |
-| children      |             | ReactNode                             | If you pass children to a Button, it will override nor ignore some of the props, such as `text, iconStart, iconEnd`. |
-| removeDefault | `false`     | boolean                               | Remove default className from the component?                                                                         |
-| className     |             | string                                | Additional classes.                                                                                                  |
-| classNames    |             | [ButtonClassNames](#buttonclassnames) | Add classes into internal component                                                                                  |
-| color         | `'primary'` | [ButtonColorEnum](#buttoncolorenum)   |
-| disabled      | `false`     | boolean                               |
-| iconStart     |             | elementType                           |
-| iconEnd       |             | elementType                           |
-| isLoading     |             | boolean                               |
-| size          | `'normal'`  | [ButtonSizeEnum](#buttonsizeenum)     |
-| text          | `'normal'`  | [ButtonSizeEnum](#buttonsizeenum)     |
+| Name          | Type                                  | Default     | Description                                                                                                          |
+| ------------- | ------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| as            | elementType                           | `'button'`  | An element type to render as (string or function).                                                                   |
+| children      | ReactNode                             |             | If you pass children to a Button, it will override nor ignore some of the props, such as `text, iconStart, iconEnd`. |
+| removeDefault | boolean                               | `false`     | Remove default className from the component?                                                                         |
+| className     | string                                |             | Additional classes.                                                                                                  |
+| classNames    | [ButtonClassNames](#buttonclassnames) |             | Add classes into internal component                                                                                  |
+| color         | [ButtonColorEnum](#buttoncolorenum)   | `'primary'` |
+| disabled      | boolean                               | `false`     |
+| iconStart     | elementType                           |             |
+| iconEnd       | elementType                           |             |
+| isLoading     | boolean                               |             |
+| size          | [ButtonSizeEnum](#buttonsizeenum)     | `'normal'`  |
+| text          | string                                |             |
+
+## Usage example
 
 ```jsx live
-function MyPlayground(props) {
+function App(props) {
   return (
     <div>
       <Button text='Basic' />
@@ -56,3 +58,5 @@ function MyPlayground(props) {
 | `'small'`  |
 | `'normal'` |
 | `'jumbo'`  |
+
+### TODO: How to extends ButtonSizeEnum?

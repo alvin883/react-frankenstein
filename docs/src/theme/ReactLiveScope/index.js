@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { Button } from 'react-frankenstein';
+import { Button, useTimer } from 'react-frankenstein';
 import 'react-frankenstein/dist/index.css';
 
 const ButtonExample = (props) => (
@@ -29,6 +29,7 @@ const ReactLiveScope = {
   ...React,
   ButtonExample,
   Button,
+  useTimer,
 };
 
 export default ReactLiveScope;
