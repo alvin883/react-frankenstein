@@ -1,1 +1,0 @@
-(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[20],{1302:function(e){"use strict";e.exports=JSON.parse('{"allTagsPath":"/react-frankenstein/blog/tags","slug":"facebook","name":"facebook","count":1,"permalink":"/react-frankenstein/blog/tags/facebook"}')}}]);
