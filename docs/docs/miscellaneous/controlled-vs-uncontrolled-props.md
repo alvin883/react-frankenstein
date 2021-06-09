@@ -1,7 +1,3 @@
----
-sidebar_label: 'Controlled vs Uncontrolled Props'
----
-
 # Controlled vs Uncontrolled Props
 
 in the UI component code you will see there's `controlled` and `uncontrolled` props. This is irrelevant for user, but relevant if you want to contribute to the project.
