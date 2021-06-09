@@ -68,3 +68,37 @@ export type ExtendPropEnum<
   {
     [Key in keyof Props]: Props[Key] | AdditionalEnums;
   };
+
+export type ExtendProps<
+  Props,
+  Extension extends { [Key in keyof Props]?: any },
+> = Omit<Props, keyof Extension> &
+  {
+    [Key in keyof Extension]:
+      | (Key extends keyof Props ? Props[Key] : never)
+      | Extension[Key];
+  };
+
+// export type ExtendUIComponent<Props> = StandardComponentType<
+
+// ,
+// ExtendedButtonProps
+// >;
+
+// type TestProps = {
+//   variant: 'contained' | 'outlined';
+//   color?: 'primary' | 'secondary';
+//   href?: string;
+// };
+
+// type ExtendTestProps = ExtendProps<
+//   TestProps,
+//   {
+//     variant: 'fab' | 'fab-circle';
+//     asal: 'asdasda' | 'asd';
+//   }
+// >;
+
+// const test: ExtendTestProps = {
+//   variant: 'fab-circle',
+// };

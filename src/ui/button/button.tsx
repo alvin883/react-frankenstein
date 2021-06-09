@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // import { keys } from 'ts-transformer-keys';
 
 import styles from './button.module.scss';
-import { StandardComponentType } from '../../types';
+import { ExtendProps, StandardComponentType } from '../../types';
 import { stylesCombinerFn } from '../../utils/styles-combiner';
 import getUncontrolledProps from '../../utils/get-uncontrolled-props';
 import ButtonIcon from './button-icon';
@@ -34,6 +34,11 @@ export type ButtonProps = {
   text?: string;
   variant?: VariantEnum;
 };
+
+export type ExtendButtonProps<Props> = StandardComponentType<
+  typeof DEFAULT_TAG,
+  ExtendProps<ButtonProps, Props>
+>;
 
 export const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
   props,
