@@ -19,6 +19,14 @@ export type StandardProps<TagType> = {
   className?: string;
 };
 
+export const standardPropKeys: Array<keyof StandardProps<'div'>> = [
+  'as',
+  'asProps',
+  'children',
+  'className',
+  'removeDefault',
+];
+
 /**
  *
  */
@@ -78,6 +86,13 @@ export type ExtendProps<
       | (Key extends keyof Props ? Props[Key] : never)
       | Extension[Key];
   };
+
+export type ModifierClassNames<
+  Prefix extends string,
+  Modifiers extends string,
+> = {
+  [Key in Modifiers as `${Prefix}--${Key}`]?: string;
+};
 
 // export type ExtendUIComponent<Props> = StandardComponentType<
 

@@ -1,9 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-// import { keys } from 'ts-transformer-keys';
 
 import styles from './button.module.scss';
-import { ExtendProps, StandardComponentType } from '../../types';
+import {
+  ExtendProps,
+  ModifierClassNames,
+  StandardComponentType,
+  standardPropKeys,
+} from '../../types';
 import { stylesCombinerFn } from '../../utils/styles-combiner';
 import getUncontrolledProps from '../../utils/get-uncontrolled-props';
 import ButtonIcon from './button-icon';
@@ -12,11 +16,15 @@ import ButtonText from './button-text';
 
 let DEFAULT_TAG: 'button' = 'button';
 
-type SizeEnum = 'small' | 'normal' | 'jumbo';
-type VariantEnum = 'fab' | 'fab-circle' | 'outlined' | 'contained';
-type ColorEnum = 'primary' | 'secondary';
+type SizeType = 'small' | 'normal' | 'jumbo';
+type VariantType = 'fab' | 'fab-circle' | 'outlined' | 'contained';
+type ColorType = 'primary' | 'secondary';
 
-export type ButtonProps = {
+export type ButtonProps<
+  GenericColorType extends string = ColorType,
+  GenericSizeType extends string = SizeType,
+  GenericVariantType extends string = VariantType,
+> = {
   classNames?: {
     button?: string;
     button__icon?: string;
@@ -24,20 +32,29 @@ export type ButtonProps = {
     button__iconEnd?: string;
     button__text?: string;
     button__loading?: string;
-  };
-  color?: ColorEnum;
+  } & ModifierClassNames<'color', ColorType | GenericColorType> &
+    ModifierClassNames<'size', SizeType | GenericSizeType> &
+    ModifierClassNames<'variant', VariantType | GenericVariantType>;
+  color?: ColorType | GenericColorType | string;
   disabled?: boolean;
   iconEnd?: React.ElementType;
   iconStart?: React.ElementType;
   isLoading?: boolean;
-  size?: SizeEnum;
+  size?: SizeType | GenericSizeType | string;
   text?: string;
-  variant?: VariantEnum;
+  variant?: VariantType | GenericVariantType | string;
 };
 
 export type ExtendButtonProps<Props> = StandardComponentType<
   typeof DEFAULT_TAG,
-  ExtendProps<ButtonProps, Props>
+  ExtendProps<
+    ButtonProps<
+      Props extends { color: string } ? Props['color'] : never,
+      Props extends { size: string } ? Props['size'] : never,
+      Props extends { variant: string } ? Props['variant'] : never
+    >,
+    Props
+  >
 >;
 
 export const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
@@ -53,12 +70,16 @@ export const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
     color = 'primary',
     disabled = false,
     isLoading,
+    removeDefault,
     children,
   } = props;
 
-  const c = stylesCombinerFn(styles, classNames);
-  // const controlledProps = keys<ButtonProps>();
+  const c = stylesCombinerFn(removeDefault ? {} : styles, classNames);
+
+  // TODO: Find a way to transform ts type keys into array
+  // candidate: ts-transformer-keys
   const controlledProps = [
+    ...standardPropKeys,
     'classNames',
     'color',
     'disabled',
@@ -69,22 +90,24 @@ export const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
     'text',
     'variant',
   ];
-  // const uncontrolledProps = React.useCallback(
-  //   () => getUncontrolledProps(props, controlledProps),
-  //   [],
-  // );
-  const uncontrolledProps = getUncontrolledProps(props, controlledProps);
+
+  const uncontrolledProps = React.useCallback(
+    () => getUncontrolledProps(props, controlledProps),
+    [],
+  );
 
   return (
     <Tag
       {...uncontrolledProps}
-      className={c('button', className, {
-        [styles[`size-${size}`]]: size,
-        [styles[`color-${color}`]]: color,
-        [styles[`variant-${variant}`]]: variant,
-        [styles[`is-loading`]]: isLoading,
-        [styles[`is-disabled`]]: disabled,
-      })}
+      className={c(
+        'button',
+        className,
+        size && c(`size-${size}`),
+        color && c(`color-${color}`),
+        variant && c(`variant-${variant}`),
+        isLoading && c(`is-loading`),
+        disabled && c(`is-disabled`),
+      )}
       disabled={props.disabled || isLoading}
     >
       {children ? (
@@ -106,7 +129,10 @@ export const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
           ) : null}
           {props.iconStart ? (
             <ButtonIcon
-              className={c('button__icon', c('button__iconStart'))}
+              classNames={{
+                button__icon: c('button__icon', c('button__iconStart')),
+                button__iconSvg: c('button__iconSvg'),
+              }}
               svg={props.iconStart}
             />
           ) : null}
@@ -115,7 +141,10 @@ export const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
           ) : null}
           {props.iconEnd ? (
             <ButtonIcon
-              className={c('button__icon', c('button__iconEnd'))}
+              classNames={{
+                button__icon: c('button__icon', c('button__iconEnd')),
+                button__iconSvg: c('button__iconSvg'),
+              }}
               svg={props.iconEnd}
             />
           ) : null}
