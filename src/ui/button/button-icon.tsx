@@ -1,23 +1,26 @@
 import React from 'react';
-import clsx from 'clsx';
 
-import styles from './button.module.scss';
 import { StandardComponentType } from '../../types';
+import { stylesCombinerFn } from '../../utils/styles-combiner';
 
 let DEFAULT_TAG: 'div' = 'div';
 
 export type ButtonIconProps = {
-  className?: string;
+  classNames?: {
+    button__icon?: string;
+    button__iconSvg?: string;
+  };
   svg: React.ElementType;
 };
 
 const ButtonIcon: StandardComponentType<typeof DEFAULT_TAG, ButtonIconProps> = (
   props,
 ) => {
-  const Svg = props.svg;
+  const { svg: Svg, classNames = {}, className } = props;
+  const c = stylesCombinerFn({}, classNames);
   return (
-    <div className={clsx(styles.button__icon, props.className)}>
-      <Svg />
+    <div className={c('button__icon', className)}>
+      <Svg className={c('button__iconSvg')} />
     </div>
   );
 };

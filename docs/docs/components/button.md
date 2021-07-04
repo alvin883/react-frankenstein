@@ -58,5 +58,3 @@ function App(props) {
 | `'small'`  |
 | `'normal'` |
 | `'jumbo'`  |
-
-### TODO: How to extends ButtonSizeEnum?

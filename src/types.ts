@@ -19,6 +19,14 @@ export type StandardProps<TagType> = {
   className?: string;
 };
 
+export const standardPropKeys: Array<keyof StandardProps<'div'>> = [
+  'as',
+  'asProps',
+  'children',
+  'className',
+  'removeDefault',
+];
+
 /**
  *
  */
@@ -34,21 +42,17 @@ export type StandardComponentTypeProps<TagType, Props> = Props &
  * Standardize component type combined with dynamic as props and default tag
  * type
  */
-export type StandardComponentType<
-  DefaultTag extends React.ElementType,
-  Props
-> = (<TagType extends React.ElementType = DefaultTag>(
-  props: StandardComponentTypeProps<TagType, Props>,
-) => React.ReactElement) & {
-  propTypes?: React.WeakValidationMap<Props>;
-};
+export type StandardComponentType<DefaultTag extends React.ElementType, Props> =
+  (<TagType extends React.ElementType = DefaultTag>(
+    props: StandardComponentTypeProps<TagType, Props>,
+  ) => React.ReactElement) & {
+    propTypes?: React.WeakValidationMap<Props>;
+  };
 
-export type StandardComponentWithClassName<
-  DT extends React.ElementType,
-  P
-> = StandardComponentType<DT, P> & {
-  styles: string;
-};
+export type StandardComponentWithClassName<DT extends React.ElementType, P> =
+  StandardComponentType<DT, P> & {
+    styles: string;
+  };
 
 export type ClassNamesType<S extends string> = {
   [key in S]?: string;
@@ -62,4 +66,54 @@ export type ClassNamesType<S extends string> = {
 //   classNames: {
 //     button: 's'
 //   }
+// };
+
+export type ExtendPropEnum<
+  Props,
+  PropsKey extends keyof Props,
+  AdditionalEnums,
+> = Omit<Props, PropsKey> &
+  {
+    [Key in keyof Props]: Props[Key] | AdditionalEnums;
+  };
+
+export type ExtendProps<
+  Props,
+  Extension extends { [Key in keyof Props]?: any },
+> = Omit<Props, keyof Extension> &
+  {
+    [Key in keyof Extension]:
+      | (Key extends keyof Props ? Props[Key] : never)
+      | Extension[Key];
+  };
+
+export type ModifierClassNames<
+  Prefix extends string,
+  Modifiers extends string,
+> = {
+  [Key in Modifiers as `${Prefix}--${Key}`]?: string;
+};
+
+// export type ExtendUIComponent<Props> = StandardComponentType<
+
+// ,
+// ExtendedButtonProps
+// >;
+
+// type TestProps = {
+//   variant: 'contained' | 'outlined';
+//   color?: 'primary' | 'secondary';
+//   href?: string;
+// };
+
+// type ExtendTestProps = ExtendProps<
+//   TestProps,
+//   {
+//     variant: 'fab' | 'fab-circle';
+//     asal: 'asdasda' | 'asd';
+//   }
+// >;
+
+// const test: ExtendTestProps = {
+//   variant: 'fab-circle',
 // };

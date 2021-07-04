@@ -4,6 +4,12 @@
 
 [![NPM](https://img.shields.io/npm/v/react-frankenstein.svg)](https://www.npmjs.com/package/react-frankenstein) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+---
+
+### [Read Full Documentation](https://alvin883.github.io/react-frankenstein/)
+
+---
+
 ## Install
 
 ```bash

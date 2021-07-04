@@ -66,6 +66,7 @@
   "dependencies": {
     "clsx": "^1.1.1",
     "node-sass": "4.14.1",
-    "react-transition-group": "^4.4.1"
+    "react-transition-group": "^4.4.1",
+    "ts-transformer-keys": "^0.4.3"
   }
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import styles from './button.module.scss';
 import { StandardComponentType } from '../../types.experimental';
 import { stylesCombinerFn } from '../../utils/styles-combiner';
 import { ReactComponent as IconLoading } from './button-loading-icon.svg';
@@ -22,7 +21,7 @@ const ButtonLoading: StandardComponentType<
   ButtonLoadingProps
 > = (props) => {
   const { icon: Icon = IconLoading, classNames = {}, className } = props;
-  const c = stylesCombinerFn(styles, classNames);
+  const c = stylesCombinerFn({}, classNames);
   return (
     <div className={c('loading', c('animation'), className)}>
       <Icon className={c('loading__icon')} />
