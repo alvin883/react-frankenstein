@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StandardComponentType } from '../../types.experimental';
+import { StandardComponentType } from '../../types';
 import { stylesCombinerFn } from '../../utils/styles-combiner';
 import { ReactComponent as IconLoading } from './button-loading-icon.svg';
 

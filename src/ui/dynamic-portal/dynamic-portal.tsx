@@ -27,7 +27,8 @@ const DynamicPortal: React.FC<DynamicPortalProps> = ({ id, children }) => {
 };
 
 DynamicPortal.propTypes = {
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };
 
+export { DynamicPortal };
 export default memo(DynamicPortal);
