@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import animationInterval from '../../utils/animation-interval';
 import { useIsFirstMount } from '../use-is-first-mount';
+import animationInterval from '../../utils/animation-interval';
 
 type UseTimerType = (args: {
   /**
@@ -11,6 +11,10 @@ type UseTimerType = (args: {
 }) => number;
 
 const useTimer: UseTimerType = ({ duration, onTimeout = () => {} }) => {
+  if (!duration || typeof duration !== 'number') {
+    console.error('Please pass `duration` value into useTimer');
+  }
+
   const isFirstMount = useIsFirstMount();
   const initDeadline = new Date().getTime() + duration;
   const [deadline, setDeadline] = useState(initDeadline);

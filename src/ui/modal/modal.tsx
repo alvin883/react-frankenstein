@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  MutableRefObject,
-  useContext,
-  useRef,
-} from 'react';
+import { createContext, MutableRefObject, useContext, useRef } from 'react';
 import clsx from 'clsx';
 import { CSSTransition } from 'react-transition-group';
 

@@ -12,10 +12,33 @@ How it works:
 ## Usage example
 
 ```jsx
+import { useTimer } from 'react-frankentein';
+
+const App = () => {
+  const onTimeout = () => alert('timeout');
+  const remainingTime = useTimer({
+    duration: 1000,
+    onTimeout,
+  });
+};
+```
+
+##### In action
+
+```jsx live
 function App() {
   const onTimeout = () => alert('timeout');
-  const remainingTime = useTimer(10000, onTimeout);
-  return <h3>Remaining Time: {remainingTime}</h3>;
+  const remainingTimeInMs = useTimer({
+    duration: 10000,
+    onTimeout,
+  });
+  const remainingTime = parseTimeObject(remainingTimeInMs);
+
+  return (
+    <h3>
+      Remaining Time: {remainingTime.m}m:{remainingTime.s}s
+    </h3>
+  );
 }
 ```
 

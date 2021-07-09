@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { StandardComponentType } from '../../types';
 
 let DEFAULT_TAG: 'div' = 'div';
