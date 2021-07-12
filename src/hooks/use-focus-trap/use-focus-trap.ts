@@ -4,11 +4,11 @@ import {
   focusIn,
   FocusResult,
   FocusStrategy,
-} from '../../utils/focus-management';
-import isBrowser from '../../utils/is-browser';
-import useWindowEvent from '../use-window-event';
+} from 'src/utils/focus-management';
+import isBrowser from 'src/utils/is-browser';
+import useWindowEvent from 'src/hooks/use-window-event';
 
-export enum Features {
+enum Features {
   /** No features enabled for the `useFocusTrap` hook. */
   None = 1 << 0,
 
@@ -138,4 +138,5 @@ const useFocusTrap = (
   return {};
 };
 
+export { useFocusTrap, Features as FocusTrapFeatures };
 export default useFocusTrap;

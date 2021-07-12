@@ -1,7 +1,7 @@
 import { RefObject, useState } from 'react';
 
-import useClickAway from '../use-click-away';
-import useKeyupEffect from '../use-keyup-effect';
+import useClickAway from 'src/hooks/use-click-away';
+import useKeyupEffect from 'src/hooks/use-keyup-effect';
 
 export type useModalArgumentsType = {
   initial: boolean;

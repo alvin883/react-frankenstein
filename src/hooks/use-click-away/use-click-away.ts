@@ -1,11 +1,11 @@
 import { RefObject, useEffect } from 'react';
-import onListener from '../../utils/onListener';
-import offListener from '../../utils/offListener';
+import onListener from 'src/utils/onListener';
+import offListener from 'src/utils/offListener';
 
 const useClickAway = (
   ref: RefObject<HTMLElement | null | unknown> | null | undefined,
   onClickAway: (e: Event) => void,
-  events: (keyof DocumentEventMap)[] = ['mousedown', 'touchstart']
+  events: (keyof DocumentEventMap)[] = ['mousedown', 'touchstart'],
 ) => {
   useEffect(() => {
     if (!ref || !ref.current) return;

@@ -7,9 +7,9 @@ import {
   ModifierClassNames,
   StandardComponentType,
   standardPropKeys,
-} from '../../types';
-import { stylesCombinerFn } from '../../utils/styles-combiner';
-import getUncontrolledProps from '../../utils/get-uncontrolled-props';
+} from 'src/types';
+import { stylesCombinerFn } from 'src/utils/styles-combiner';
+import getUncontrolledProps from 'src/utils/get-uncontrolled-props';
 import ButtonIcon from './button-icon';
 import ButtonLoading from './button-loading';
 import ButtonText from './button-text';
@@ -91,7 +91,7 @@ export const Button: StandardComponentType<typeof DEFAULT_TAG, ButtonProps> = (
     'variant',
   ];
 
-  const uncontrolledProps = React.useCallback(
+  const uncontrolledProps = React.useMemo(
     () => getUncontrolledProps(props, controlledProps),
     [],
   );

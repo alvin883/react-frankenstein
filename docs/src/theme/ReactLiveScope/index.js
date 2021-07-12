@@ -6,7 +6,13 @@
  */
 
 import React from 'react';
-import { Button, useTimer, parseTimeObject } from 'react-frankenstein';
+import {
+  Button,
+  Modal,
+  useTimer,
+  useModal,
+  parseTimeObject,
+} from 'react-frankenstein';
 
 const ButtonExample = (props) => (
   <button
@@ -22,13 +28,31 @@ const ButtonExample = (props) => (
   />
 );
 
+const Wrapper = ({ children }) => {
+  return (
+    <div
+      style={{
+        position: 'relative',
+        height: '200px',
+        margin: '-1rem',
+        padding: '1rem',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
 // Add react-live imports you need here
 const ReactLiveScope = {
   React,
   ...React,
   ButtonExample,
   Button,
+  Wrapper,
+  Modal,
   useTimer,
+  useModal,
   parseTimeObject,
 };
 

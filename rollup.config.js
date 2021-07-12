@@ -13,6 +13,7 @@ import { getFiles } from './scripts/build-utils';
 
 const extensions = ['.js', '.ts', '.jsx', '.tsx'];
 const excludeExtensions = ['.test.js', '.test.ts', '.test.jsx', '.test.tsx'];
+const rootDir = path.resolve(__dirname);
 
 export default {
   input: [
@@ -32,6 +33,10 @@ export default {
     peerDepsExternal(),
     alias({
       entries: [
+        {
+          find: 'src',
+          replacement: path.join(rootDir, 'src'),
+        },
         {
           find: 'react',
           replacement: path.join(__dirname, 'node_modules', 'react'),

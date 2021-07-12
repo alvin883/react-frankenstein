@@ -2,13 +2,13 @@ import { useRef, useState } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import useFocusTrap, { Features } from './use-focus-trap';
+import { useFocusTrap, FocusTrapFeatures } from './use-focus-trap';
 
 const TestComponent = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const open = () => setIsOpen(true);
-  useFocusTrap(ref, isOpen ? Features.All : Features.None);
+  useFocusTrap(ref, isOpen ? FocusTrapFeatures.All : FocusTrapFeatures.None);
   return (
     <div data-testid='root'>
       <button data-testid='btn-init'></button>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useIsFirstMount } from '../use-is-first-mount';
-import animationInterval from '../../utils/animation-interval';
+import { useIsFirstMount } from 'src/hooks/use-is-first-mount';
+import animationInterval from 'src/utils/animation-interval';
 
 type UseTimerType = (args: {
   /**

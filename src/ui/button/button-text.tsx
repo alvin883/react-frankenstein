@@ -1,4 +1,4 @@
-import { StandardComponentType } from '../../types';
+import { StandardComponentType } from 'src/types';
 
 let DEFAULT_TAG: 'div' = 'div';
 

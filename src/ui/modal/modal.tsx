@@ -1,61 +1,71 @@
 import { createContext, MutableRefObject, useContext, useRef } from 'react';
-import clsx from 'clsx';
 import { CSSTransition } from 'react-transition-group';
 
 import styles from './modal.module.scss';
-import { StandardComponentType } from '../../types';
-import csstmap from '../../utils/csstmap';
-import { useModalReturnType } from '../../hooks/use-modal/use-modal';
-import useFocusTrap, {
-  Features as FocusTrapFeatures,
-} from '../../hooks/use-focus-trap/use-focus-trap';
+import { ExtendProps, StandardComponentType } from 'src/types';
+import { mapCssTransition, MapCSSTransitionKeys } from 'src/utils/css';
+import { useModalReturnType } from 'src/hooks/use-modal';
+import { useFocusTrap, FocusTrapFeatures } from 'src/hooks/use-focus-trap';
+import { stylesCombinerFn } from 'src/utils/styles-combiner';
 
 let DEFAULT_TAG: 'div' = 'div';
 
-export type ModalProps = Partial<useModalReturnType> & {
+type ModalProps = Partial<useModalReturnType> & {
   unmountOnExit?: boolean;
   timeout?: number;
   initialFocusRef?: MutableRefObject<HTMLElement | null>;
+  classNames?: {
+    modal?: string;
+  } & {
+    [key in MapCSSTransitionKeys as `is-${key}`]?: string;
+  };
 };
 
-export const Modal: StandardComponentType<typeof DEFAULT_TAG, ModalProps> & {
+type ExtendModalProps<Props> = StandardComponentType<
+  typeof DEFAULT_TAG,
+  ExtendProps<ModalProps, Props>
+>;
+
+const Modal: StandardComponentType<typeof DEFAULT_TAG, ModalProps> & {
   Overlay: typeof Overlay;
   Box: typeof Box;
   Title: typeof Title;
 } = (props) => {
   const {
     as: Tag = DEFAULT_TAG,
+    removeDefault,
+    className,
+    classNames = {},
     isOpen = false,
     unmountOnExit = true,
     timeout = 275,
     initialFocusRef,
     close = () => {},
   } = props;
+
+  const c = stylesCombinerFn(removeDefault ? {} : styles, classNames);
+
   const rootRef = useRef(null);
   const focusTrapFeatures = isOpen
     ? FocusTrapFeatures.All
     : FocusTrapFeatures.None;
 
-  console.log({ focusTrapFeatures });
   useFocusTrap(rootRef, focusTrapFeatures, { initialFocusRef });
 
   return (
     <ModalContext.Provider value={{ isOpen: isOpen, close: close }}>
       <CSSTransition
         nodeRef={rootRef}
-        classNames={csstmap(styles)}
+        classNames={mapCssTransition(c.value)}
         in={isOpen}
         timeout={timeout}
         unmountOnExit={unmountOnExit}
       >
         <Tag
           {...props.asProps}
-          className={clsx(
-            !props.removeDefault && styles.modal,
-            props.className,
-          )}
-          ref={rootRef}
           {...props.attributes}
+          className={c('modal', className)}
+          ref={rootRef}
         >
           {props.children}
         </Tag>
@@ -74,9 +84,7 @@ const useModalContext = () => {
 // ----------------------------------------------------------------------------
 // Overlay
 // ----------------------------------------------------------------------------
-type OverlayType = StandardComponentType<typeof DEFAULT_TAG, {}> & {
-  styles: string;
-};
+type OverlayType = StandardComponentType<typeof DEFAULT_TAG, {}>;
 
 const Overlay: OverlayType = ({
   as: Tag = DEFAULT_TAG,
@@ -86,22 +94,20 @@ const Overlay: OverlayType = ({
   className,
   ...props
 }) => {
+  const c = stylesCombinerFn(removeDefault ? {} : styles, {});
   const context = useModalContext();
-  const onClick = () => {
-    if (context?.isOpen) context.close();
-  };
+  const onClick = () => (context?.isOpen ? context.close() : null);
   return (
     <Tag
       {...props}
       {...asProps}
-      className={clsx(!removeDefault && styles.overlay, className)}
+      className={c('overlay', className)}
       onClick={onClick}
     >
       {children}
     </Tag>
   );
 };
-Overlay.styles = styles.overlay;
 
 // ----------------------------------------------------------------------------
 // Box
@@ -116,17 +122,13 @@ const Box: BoxType = ({
   className,
   ...props
 }) => {
+  const c = stylesCombinerFn(removeDefault ? {} : styles, {});
   return (
-    <Tag
-      {...props}
-      {...asProps}
-      className={clsx(!removeDefault && styles.box, className)}
-    >
+    <Tag {...props} {...asProps} className={c('box', className)}>
       {children}
     </Tag>
   );
 };
-Box.styles = styles.box;
 
 // ----------------------------------------------------------------------------
 // Title
@@ -141,18 +143,17 @@ const Title: TitleType = ({
   className,
   ...props
 }) => {
+  const c = stylesCombinerFn(removeDefault ? {} : styles, {});
   return (
-    <Tag
-      {...props}
-      {...asProps}
-      className={clsx(!removeDefault && styles.title, className)}
-    >
+    <Tag {...props} {...asProps} className={c('title', className)}>
       {children}
     </Tag>
   );
 };
-Title.styles = styles.title;
 
 Modal.Overlay = Overlay;
 Modal.Box = Box;
 Modal.Title = Title;
+
+export type { ModalProps, ExtendModalProps };
+export { Modal };

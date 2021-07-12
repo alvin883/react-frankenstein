@@ -1,7 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'React Frankenstein',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'Experimental UI library',
   url: 'https://alvin883.github.io',
   baseUrl: '/react-frankenstein/',
   onBrokenLinks: 'throw',
@@ -23,7 +23,6 @@ module.exports = {
           position: 'right',
           label: 'Documentation',
         },
-        // { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/alvin883/react-frankenstein',
           label: 'GitHub',
@@ -38,8 +37,12 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Components',
+              to: '/docs/components/button',
+            },
+            {
+              label: 'Hooks',
+              to: '/docs/hooks/use-focus-trap',
             },
           ],
         },
@@ -55,10 +58,6 @@ module.exports = {
         {
           title: 'More',
           items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
             {
               label: 'GitHub',
               href: 'https://github.com/alvin883/react-frankenstein',

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { StandardComponentType } from '../../types';
-import { stylesCombinerFn } from '../../utils/styles-combiner';
+import { StandardComponentType } from 'src/types';
+import { stylesCombinerFn } from 'src/utils/styles-combiner';
 
 let DEFAULT_TAG: 'div' = 'div';
 

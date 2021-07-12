@@ -1,10 +1,8 @@
----
-sidebar_position: 1
----
-
 # Button
 
 you know, a button
+
+## Props
 
 | Name          | Type                                  | Default     | Description                                                                                                          |
 | ------------- | ------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------- |
@@ -24,7 +22,7 @@ you know, a button
 ## Usage example
 
 ```jsx live
-function App(props) {
+function App() {
   return (
     <div>
       <Button text='Basic' />
@@ -51,6 +49,10 @@ function App(props) {
 | `'primary'`   |
 | `'secondary'` |
 
+:::tip
+You can also extend color enums, [see how](/docs/miscellaneous/how-to-extends-prop)
+:::
+
 ## `ButtonSizeEnum`
 
 | option     |
@@ -58,3 +60,7 @@ function App(props) {
 | `'small'`  |
 | `'normal'` |
 | `'jumbo'`  |
+
+:::tip
+You can also extend size enums, [see how](/docs/miscellaneous/how-to-extends-prop)
+:::
